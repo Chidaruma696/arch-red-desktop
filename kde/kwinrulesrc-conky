@@ -1,0 +1,19 @@
+[conky-panels]
+Description=Conky panels (XWayland)
+wmclass=Conky
+wmclasscomplete=false
+wmclassmatch=1
+below=true
+belowrule=2
+skiptaskbar=true
+skiptaskbarrule=2
+skippager=true
+skippagerrule=2
+skipswitcher=true
+skipswitcherrule=2
+acceptfocus=false
+acceptfocusrule=2
+noborder=true
+noborderrule=2
+desktops=
+desktopsrule=2

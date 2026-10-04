@@ -1,0 +1,43 @@
+--- install.sh	2026-10-04 16:18:26.766683395 -0600
++++ install-white.sh	2026-10-04 16:26:08.489547292 -0600
+@@ -8,7 +8,7 @@
+ 
+ readonly SRC_DIR=$(cd $(dirname $0) && pwd)
+ 
+-readonly COLOR_VARIANTS=("standard" "black" "blue" "brown" "green" "grey" "orange" "pink" "purple" "red" "yellow" "manjaro" "ubuntu" "dracula" "nord")
++readonly COLOR_VARIANTS=("standard" "black" "blue" "brown" "green" "grey" "orange" "pink" "purple" "red" "yellow" "manjaro" "ubuntu" "dracula" "nord" "white")
+ readonly BRIGHT_VARIANTS=("" "light" "dark")
+ 
+ if command -v lsb_release &> /dev/null; then
+@@ -99,6 +99,10 @@
+       local -r theme_color='#66bb6a'
+       local -r theme_back_color='#ffffff'
+       ;;
++    white)
++      local -r theme_color='#eeeeee'
++      local -r theme_back_color='#1a1a1a'
++      ;;
+     grey)
+       local -r theme_color='#bdbdbd'
+       local -r theme_back_color='#666666'
+@@ -167,6 +171,10 @@
+   if [[ -z "${brightprefix}" ]]; then
+     cp -r "${SRC_DIR}"/src/{16,22,24,32,scalable,symbolic}                       "${THEME_DIR}"
+ 
++    if [[ "$1" == "white" ]]; then
++      sed -i "s/#5294e2/#d71921/g" "${THEME_DIR}/scalable/apps/"*.svg
++    fi
++
+     if [[ "$1" != "standard" ]]; then
+       sed -i "s/#5294e2/${theme_color}/g" "${THEME_DIR}/scalable/apps/"*.svg "${THEME_DIR}/scalable/places/"default-*.svg "${THEME_DIR}/16/places/"folder*.svg
+       sed -i "/\ColorScheme-Highlight/s/currentColor/${theme_color}/" "${THEME_DIR}/scalable/places/"default-*.svg "${THEME_DIR}/16/places/"folder*.svg
+@@ -181,6 +189,9 @@
+         sed -i "s/${theme_color}/#dd86e0/g" "${THEME_DIR}/scalable/places/"default-user-desktop.svg
+         sed -i '/\id="highlight"/s/opacity=".25"/opacity="0"/' "${THEME_DIR}/scalable/places/"default-user-desktop.svg
+         sed -i "s/#5294e2/#bd93f9/g" "${THEME_DIR}/scalable/devices/"*.svg "${THEME_DIR}/32/devices/"*.svg
++      elif [[ "$1" == "white" ]]; then
++        sed -i "s/color:#ffffff/color:#1a1a1a/g" "${THEME_DIR}/scalable/places/"default-*.svg
++        sed -i "s/#5294e2/#d71921/g" "${THEME_DIR}/scalable/devices/"*.svg "${THEME_DIR}/32/devices/"*.svg
+       elif [[ "$1" == "grey" ]]; then
+         sed -i "s/color:#ffffff/color:#666666/g" "${THEME_DIR}/scalable/places/"default-*.svg
+         sed -i "s/#5294e2/#666666/g" "${THEME_DIR}/scalable/devices/"*.svg "${THEME_DIR}/32/devices/"*.svg
